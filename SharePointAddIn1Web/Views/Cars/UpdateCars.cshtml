@@ -1,0 +1,26 @@
+﻿@model SharePointAddIn1Web.Models.CarModel
+
+@{
+    ViewBag.Title = "UpdateCars";
+}
+
+<h2>UpdateCars</h2>
+
+
+@using (Html.BeginForm("Add", "Cars", FormMethod.Post, new { @id = "CarsForm" }))
+{
+
+    @Html.LabelFor(x => x.Brand)
+    @Html.TextBoxFor(x => x.Brand, new { placeholder = "(Enter brand)", @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Brand, "", new { @class = "text-danger" })
+    <div></div>
+    @Html.LabelFor(x => x.Seria)
+    @Html.TextBoxFor(x => x.Seria, new { placeholder = "(Enter model)", @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Seria, "", new { @class = "text-danger" })
+    <div></div>
+    @Html.LabelFor(x => x.Price)
+    @Html.TextBoxFor(x => x.Price, new { placeholder = "(Enter price)", @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Price, "", new { @class = "text-danger" })
+
+    <button type="submit" class="btn btn-primary">Add car to list</button>
+}

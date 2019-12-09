@@ -1,0 +1,37 @@
+﻿@model IEnumerable<SharePointAddIn1Web.Models.CarModel>
+@{
+    ViewBag.Title = "CarList";
+}
+
+<h2>Car List</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Price</th>
+            <th>Add</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var modell in Model)
+        {
+            <tr>
+                <td>@modell.Title</td>
+                <td>@modell.Brand</td>
+                <td>@modell.Seria</td>
+                <td>@modell.Price</td>
+                <td>
+                    <button type="submit" class="btn" id="@modell.ID">Dodaj nowy element na liste</button>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<a href="/Cars/UpdateCar" class="Button">Dodaj nowy sam.</a>
+@*<a href="/UpdateCars/Cars" class="Button">Dodaj nowy sam.</a>*@

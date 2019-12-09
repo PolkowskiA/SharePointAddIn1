@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="8f2fd1e7-071b-4205-97f7-40b5b9ea8ce9" solutionId="8f2fd1e7-071b-4205-97f7-40b5b9ea8ce9" resetWebServer="false" sharePointProductVersion="15.0" name="SharePointAddIn1" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+  <features>
+    <featureReference itemId="1411dd82-508d-463e-8687-0f986c5d35d6" />
+  </features>
+</package>
