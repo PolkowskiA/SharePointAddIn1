@@ -7,9 +7,9 @@ using System.Web.Mvc;
 
 namespace SharePointAddIn1Web.Controllers
 {
+    //[SharePointContextFilter]
     public class HomeController : Controller
-    {
-        [SharePointContextFilter]
+    {        
         public ActionResult Index()
         {
             User spUser = null;

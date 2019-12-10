@@ -6,8 +6,7 @@
 
 <h2>UpdateCars</h2>
 
-
-@using (Html.BeginForm("Add", "Cars", FormMethod.Post, new { @id = "CarsForm" }))
+@using (@Html.BeginForm("Add", "Cars", new { SPHostUrl = TempData["SPHostUrl"]}, FormMethod.Post, new { @id = "CarsForm" }))
 {
 
     @Html.LabelFor(x => x.Brand)

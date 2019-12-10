@@ -19,6 +19,7 @@ namespace SharePointAddIn1Web
             switch (SharePointContextProvider.CheckRedirectionStatus(filterContext.HttpContext, out redirectUrl))
             {
                 case RedirectionStatus.Ok:
+                    filterContext.Controller.TempData["SPHostUrl"] = SharePointContextProvider.Current.GetSharePointContext(filterContext.HttpContext).SPHostUrl.AbsoluteUri;
                     return;
                 case RedirectionStatus.ShouldRedirect:
                     filterContext.Result = new RedirectResult(redirectUrl.AbsoluteUri);

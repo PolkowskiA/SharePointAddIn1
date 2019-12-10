@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace SharePointAddIn1Web.Controllers
 {
+    //[SharePointContextFilter]
     public class CarsController : Controller
     {        
         // GET: Cars
@@ -36,12 +37,12 @@ namespace SharePointAddIn1Web.Controllers
                 return View("CarList", car);
             else
             {
-                string url = car.SPHostUrl.Substring(10);
-                UriBuilder uri = new UriBuilder(url);
-                NameValueCollection nameURL = new NameValueCollection();
-                nameURL["SPHostUrl"] = uri.ToString();
-                HttpContext.Request.QueryString.Add(nameURL);
-                //HttpContext.Request.QueryString = url;
+                //string url = car.SPHostUrl.Substring(10);
+                //UriBuilder uri = new UriBuilder(url);
+                //NameValueCollection nameURL = new NameValueCollection();
+                //nameURL["SPHostUrl"] = uri.ToString();
+                //HttpContext.Request.QueryString.Add(nameURL);
+                ////HttpContext.Request.QueryString = url;
 
                 SharePointContext spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
 
@@ -49,7 +50,7 @@ namespace SharePointAddIn1Web.Controllers
                 {
                     CarRepository carRepository = new CarRepository(clientContext);
                     carRepository.AddNewCar(car);
-                    return RedirectToAction("CarList");
+                    return RedirectToAction("CarList", new { SPHostUrl = TempData["SPHostUrl"] });
                 }
             }
         }
