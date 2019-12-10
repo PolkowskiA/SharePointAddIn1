@@ -16,6 +16,7 @@ namespace SharePointAddIn1Web.Models
         public double? Price { get; set; }
         [Required]
         public string Seria { get; set; }
+        public string SPHostUrl { get; set; }
 
     }
 }

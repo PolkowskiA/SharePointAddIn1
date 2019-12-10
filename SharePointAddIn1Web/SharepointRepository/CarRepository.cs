@@ -8,71 +8,63 @@ namespace SharePointAddIn1Web.SharepointRepository
 {
     public class CarRepository
     {
+        private ClientContext _clientContext;
+
+        public CarRepository(ClientContext clientContext)
+        {
+            _clientContext = clientContext;
+        }
 
         public void AddNewCar(CarModel car)
         {
-            AuthenticationManager authenticationManager = new AuthenticationManager();
-            using (ClientContext cnx = authenticationManager.GetWebLoginClientContext("https://polcodex.sharepoint.com/sites/dev"))
-
+            Web web = _clientContext.Web;
+            _clientContext.Load(web, x => x.Lists, w => w.ServerRelativeUrl);
+            _clientContext.ExecuteQuery();
+            List lista = _clientContext.Web.Lists.GetByTitle("Cars");
+            _clientContext.Load(lista);
+            _clientContext.ExecuteQuery();
+            ListItemCreationInformation itemCreateInfo = new ListItemCreationInformation();
+            ListItem oListItem = lista.AddItem(itemCreateInfo);
+            if (!string.IsNullOrEmpty(car.Brand) && !string.IsNullOrEmpty(car.Seria) && car.Seria != null)
             {
-                Web web = cnx.Web;
-                cnx.Load(web, x => x.Lists, w => w.ServerRelativeUrl);
-                cnx.ExecuteQuery();
-                List lista = cnx.Web.Lists.GetByTitle("Cars");
-                cnx.Load(lista);
-                cnx.ExecuteQuery();
-                ListItemCreationInformation itemCreateInfo = new ListItemCreationInformation();
-                ListItem oListItem = lista.AddItem(itemCreateInfo);
-                if (!string.IsNullOrEmpty(car.Brand) && !string.IsNullOrEmpty(car.Seria) && car.Seria != null)
-                {
-                    oListItem["Brand"] = car.Seria;
-                    oListItem["Series"] = car.Brand;
-                    oListItem["Price"] = car.Price;
-                    oListItem["Title"] = "nowy samochodzik";
-                }
-
-                oListItem.Update();
-                cnx.ExecuteQuery();
+                oListItem["Brand"] = car.Seria;
+                oListItem["Series"] = car.Brand;
+                oListItem["Price"] = car.Price;
+                oListItem["Title"] = "nowy samochodzik";
             }
+
+            oListItem.Update();
+            _clientContext.ExecuteQuery();
+
+
         }
 
         public List<CarModel> GetAllCars()
         {
-            try
-            {
-                AuthenticationManager authenticationManager = new AuthenticationManager();
-                using (ClientContext cnx = authenticationManager.GetWebLoginClientContext("https://polcodex.sharepoint.com/sites/dev"))
 
-                {
-                    Web web = cnx.Web;
-                    cnx.Load(web, x => x.Lists, w => w.ServerRelativeUrl);
-                    cnx.ExecuteQuery();
-                    List<CarModel> carModelsList = new List<CarModel>();
-                    List lista = cnx.Web.Lists.GetByTitle("Cars");
-                    cnx.Load(lista, l => l.Fields);
-                    cnx.ExecuteQuery();
-                    CamlQuery query = new CamlQuery();
-                    
-                    ListItemCollection listItems = lista.GetItems(CamlQuery.CreateAllItemsQuery());
-                    cnx.Load(listItems);
-                    cnx.ExecuteQuery();
-                    CarModel carModel = new CarModel();
-                    foreach (ListItem item in listItems)
-                    {
-                        carModel.ID = item.Id;
-                        carModel.Brand = item["Brand"] == null ? string.Empty : item["Brand"].ToString();
-                        carModel.Seria = item["Series"] == null ? string.Empty : item["Series"].ToString();
-                        carModel.Title = item["Title"] == null ? string.Empty : item["Title"].ToString();
-                        carModel.Price = (double?)item["Price"];
-                        carModelsList.Add(carModel);
-                    }
-                    return carModelsList;
-                }
-            }
-            catch (Exception ex)
+            Web web = _clientContext.Web;
+            _clientContext.Load(web, x => x.Lists, w => w.ServerRelativeUrl);
+            _clientContext.ExecuteQuery();
+            List<CarModel> carModelsList = new List<CarModel>();
+            List lista = _clientContext.Web.Lists.GetByTitle("Cars");
+            _clientContext.Load(lista, l => l.Fields);
+            _clientContext.ExecuteQuery();
+            CamlQuery query = new CamlQuery();
+
+            ListItemCollection listItems = lista.GetItems(CamlQuery.CreateAllItemsQuery());
+            _clientContext.Load(listItems);
+            _clientContext.ExecuteQuery();
+            foreach (ListItem item in listItems)
             {
-                throw ex;
+                CarModel carModel = new CarModel();
+                carModel.ID = item.Id;
+                carModel.Brand = item["Brand"] == null ? string.Empty : item["Brand"].ToString();
+                carModel.Seria = item["Series"] == null ? string.Empty : item["Series"].ToString();
+                carModel.Title = item["Title"] == null ? string.Empty : item["Title"].ToString();
+                carModel.Price = (double?)item["Price"];
+                carModelsList.Add(carModel);
             }
+            return carModelsList;
         }
 
         //public CarModel GetCarById(int id)
