@@ -26,7 +26,7 @@ namespace SharePointAddIn1Web.SharepointRepository
                 if (!string.IsNullOrEmpty(car.Brand) && !string.IsNullOrEmpty(car.Seria) && car.Seria != null)
                 {
                     oListItem["Brand"] = car.Seria;
-                    oListItem["Model"] = car.Brand;
+                    oListItem["Series"] = car.Brand;
                     oListItem["Price"] = car.Price;
                     oListItem["Title"] = "nowy samochodzik";
                 }
@@ -60,9 +60,9 @@ namespace SharePointAddIn1Web.SharepointRepository
                     foreach (ListItem item in listItems)
                     {
                         carModel.ID = item.Id;
-                        carModel.Brand = item["Brand"].ToString();
-                        carModel.Seria = item["Model"].ToString();
-                        carModel.Title = item["Title"].ToString();
+                        carModel.Brand = item["Brand"] == null ? string.Empty : item["Brand"].ToString();
+                        carModel.Seria = item["Series"] == null ? string.Empty : item["Series"].ToString();
+                        carModel.Title = item["Title"] == null ? string.Empty : item["Title"].ToString();
                         carModel.Price = (double?)item["Price"];
                         carModelsList.Add(carModel);
                     }

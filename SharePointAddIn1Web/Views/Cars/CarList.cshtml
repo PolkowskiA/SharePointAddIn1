@@ -8,24 +8,26 @@
 <table>
     <thead>
         <tr>
+            <th>ID</th>
             <th>Title</th>
             <th>Brand</th>
             <th>Model</th>
             <th>Price</th>
-            <th>Add</th>
+            <th>Edit</th>
         </tr>
     </thead>
     <tbody>
 
-        @foreach (var modell in Model)
+        @foreach (SharePointAddIn1Web.Models.CarModel item in Model)
         {
             <tr>
-                <td>@modell.Title</td>
-                <td>@modell.Brand</td>
-                <td>@modell.Seria</td>
-                <td>@modell.Price</td>
+                <td>@item.ID</td>
+                <td>@item.Title</td>
+                <td>@item.Brand</td>
+                <td>@item.Seria</td>
+                <td>@item.Price</td>
                 <td>
-                    <button type="submit" class="btn" id="@modell.ID">Dodaj nowy element na liste</button>
+                    <button type="submit" class="btn" id="@item.ID">Edit</button>
                 </td>
             </tr>
         }
@@ -33,5 +35,5 @@
     </tbody>
 </table>
 
-<a href="/Cars/UpdateCar" class="Button">Dodaj nowy samochód</a>
+<a href="/Cars/UpdateCar" class="Button">Add a new car</a>
 @*<a href="/UpdateCars/Cars" class="Button">Dodaj nowy sam.</a>*@
