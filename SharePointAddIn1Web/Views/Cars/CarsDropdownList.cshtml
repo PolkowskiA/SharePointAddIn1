@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SharePointAddIn1Web.Models.CarModel>
+
+@{
+    ViewBag.Title = "CarListOnDropdownList";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CarsDropdownList</title>
+</head>
+<body>
+
+    @*<ul class="dropdown-menu" aria-labelledby="dropdownMenu4"></ul>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Dropdown
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                @foreach (SharePointAddIn1Web.Models.CarModel item in Model)
+                {
+                    <li><a href="#">@item.Title</a></li>
+                }
+            </ul>
+        </div>*@
+    <select>
+        @foreach (SharePointAddIn1Web.Models.CarModel item in Model)
+        {
+            <option>@item.Title</option>
+        }
+    </select>
+
+</body>
+</html>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            //$('.dropdown-toggle').dropdown();
+        });
+    </script>
+}
+

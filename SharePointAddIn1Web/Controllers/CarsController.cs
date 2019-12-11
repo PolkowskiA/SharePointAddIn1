@@ -60,5 +60,30 @@ namespace SharePointAddIn1Web.Controllers
         {
             return View("UpdateCars");
         }
+
+        public ActionResult LoadDropdownList()
+        {
+            SharePointContext spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
+
+            using (ClientContext clientContext = spContext.CreateUserClientContextForSPHost())
+            {
+                CarRepository repository = new CarRepository(clientContext);
+                List<CarModel> mainList = repository.GetAllCars();
+                return View("CarsDropdownList", mainList);
+            }
+        }
+
+        public ActionResult AdAnotherChoiceMethod()
+        {
+            SharePointContext spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
+
+            using (ClientContext clientContext = spContext.CreateUserClientContextForSPHost())
+            {
+                CarRepository repository = new CarRepository(clientContext);
+                repository.AdAnotherChoice();
+                List<CarModel> mainList = repository.GetAllCars();
+                return View("CarList", mainList);
+            }
+        }
     }
 }

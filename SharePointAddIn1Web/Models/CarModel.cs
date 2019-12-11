@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace SharePointAddIn1Web.Models
 {
@@ -16,7 +17,5 @@ namespace SharePointAddIn1Web.Models
         public double? Price { get; set; }
         [Required]
         public string Seria { get; set; }
-        public string SPHostUrl { get; set; }
-
     }
 }
